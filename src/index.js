@@ -9,13 +9,17 @@ const port = 3000;
 const route = require('./routers');
 app.use(express.static(path.join(__dirname, 'public')));
 
+//Conect to Db
+const db = require('./config/db');
+db.connect();
+
 //HTTP Logger
 // app.use(morgan('combined'))
 
 //Template Engine
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
-app.set('views', path.join(__dirname, 'resources/views'));
+app.set('views', path.join(__dirname, 'resources','views'));
 
 //Sử dụng midleware để dọc được body .
 // Form
@@ -31,5 +35,5 @@ app.use(express.json());
 route(app);
 
 app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`);
+    console.log(`App listening on port ${port}`);
 });
