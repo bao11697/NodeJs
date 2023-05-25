@@ -19,7 +19,7 @@ db.connect();
 //Template Engine
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
-app.set('views', path.join(__dirname, 'resources','views'));
+app.set('views', path.join(__dirname, 'resources', 'views'));
 
 //Sử dụng midleware để dọc được body .
 // Form
