@@ -1,20 +1,21 @@
 const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
-const methodOverride = require('method-override')
+const methodOverride = require('method-override');
 const exphbs = require('express-handlebars');
 const app = express();
 const port = 3000;
-const hbs = exphbs.create({ 
-    defaultLayout: 'main', 
+const hbs = exphbs.create({
+    defaultLayout: 'main',
     extname: '.hbs',
-     helpers: {
-        sum: (a,b)=> a+b,
+    helpers: {
+        sum: (a, b) => a + b,
         checked: (value, curValue) => {
             if (value == undefined) return '';
             return value == curValue ? 'checked' : '';
-        }
-     }});
+        },
+    },
+});
 
 const route = require('./routers');
 app.use(express.static(path.join(__dirname, 'public')));
@@ -23,8 +24,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 const db = require('./config/db');
 db.connect();
 
-//Override Method 
-app.use(methodOverride('_method'))
+//Override Method
+app.use(methodOverride('_method'));
 
 //HTTP Logger
 // app.use(morgan('combined'))

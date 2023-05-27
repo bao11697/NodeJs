@@ -8,10 +8,10 @@ class SiteController {
         Course.find({})
             .then((courses) => {
                 res.render('home', {
-                    courses: mutipleMongooseToObject(courses)
-                })
+                    courses: mutipleMongooseToObject(courses),
+                });
             })
-            .catch(next)
+            .catch(next);
     }
 
     //GET /search
