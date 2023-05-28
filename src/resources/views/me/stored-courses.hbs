@@ -1,13 +1,19 @@
 <div class="mt-4">
    <div>
      <h3>KHÓA HỌC CỦA TÔI</h3>
-     <a href="/me/trash/courses">
-      <img src="https://cdn-icons-png.flaticon.com/512/1397/1397245.png" alt="" class="btn-img">
-     </a>
-      <a href="/courses/create">
-      <img src="https://cdn.pixabay.com/photo/2017/06/10/07/18/list-2389219_960_720.png" alt="" class="btn-img">
-     </a>
-   </div>
+       <div class="d-flex justify-content-between" >
+         <a href="/me/trash/courses" class="position-relative text-decoration-none">
+          <img src="https://cdn-icons-png.flaticon.com/512/1397/1397245.png" alt="" class="btn-img-1">
+          <span class="position-absolute top-0 start-100 translate-middle badge  px-2 rounded-pill  bg-danger text-white">
+            <span class="visually-hidden">{{deleteCount}} </span>
+          </span>
+        </a>
+
+       <a href="/courses/create" class="text-decoration-none">
+          <span class="btn btn-info">Create Course</span>
+          <img src="https://cdn.pixabay.com/photo/2017/06/10/07/18/list-2389219_960_720.png" alt="" class="btn-img-1">
+        </a>
+       </div>
 
 <table class="table table-hover mt-4">
         <thead>
