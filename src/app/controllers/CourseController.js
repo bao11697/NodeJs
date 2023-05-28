@@ -65,7 +65,32 @@ class CourseController {
             .then(() => res.redirect('back'))
             .catch(next);
     }
-    
+    //[POST]courses/handle-form-actions
+    HandleFormActions(req, res, next) {
+        switch (req.body.action) {
+            case 'delete':
+                //$in: req.body.courseIds dùng để lọc qua array
+                Course.delete({ _id: { $in: req.body.courseIds } })
+                    .then(() => res.redirect('back'))
+                    .catch(next);
+                break;
+
+            case 'force-delete':
+                Course.deleteMany({ _id: { $in: req.body.courseIds } })
+                    .then(() => res.redirect('back'))
+                    .catch(next);
+                break;
+
+            case 'restore':
+                Course.restore({ _id: { $in: req.body.courseIds } })
+                    .then(() => res.redirect('back'))
+                    .catch(next);
+                break;
+
+            default:
+                res.render('Error');
+        }
+    }
 }
 
 module.exports = new CourseController();

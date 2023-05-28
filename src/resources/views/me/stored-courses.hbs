@@ -1,7 +1,7 @@
-<div class="mt-4">
-   <div>
-     <h3>KHÓA HỌC CỦA TÔI</h3>
-       <div class="d-flex justify-content-between" >
+<form class="mt-4" name="container-form"  method="POST" action="/courses/handle-form-actions">
+  <div>
+       <h3>KHÓA HỌC CỦA TÔI</h3>
+      <div class="d-flex justify-content-between" >
          <a href="/me/trash/courses" class="position-relative text-decoration-none">
           <img src="https://cdn-icons-png.flaticon.com/512/1397/1397245.png" alt="" class="btn-img-1">
           <span class="position-absolute top-0 start-100 translate-middle badge  px-2 rounded-pill  bg-danger text-white">
@@ -13,11 +13,30 @@
           <span class="btn btn-info">Create Course</span>
           <img src="https://cdn.pixabay.com/photo/2017/06/10/07/18/list-2389219_960_720.png" alt="" class="btn-img-1">
         </a>
-       </div>
+      </div>
+
+      <div class="mt-4 d-flex align-items-center">
+          <div class="form-check ">
+            <input class="form-check-input" type="checkbox" value="" id="checkbox-all">
+            <label class="form-check-label" for="checkbox-all">
+              Chọn Tất Cả
+            </label>
+          </div>
+
+            <select class="form-control form-control-sm form-select-all-options" name="action" required>
+              <option value="">-- Chọn Hành Động --</option>
+
+              <option value="delete">Xóa</option>
+            </select>
+
+          <button type="submit" class="btn btn-outline-primary btn-sm" id="check-all-submit-btn" disabled >Thực Hiện</button>
+      </div>
+  </div>
 
 <table class="table table-hover mt-4">
         <thead>
             <tr>
+            <th></th>
             <th style="width: 2%">#</th>
             <th style="width: 20%">Course Name</th>
             <th style="width: 10%">VideoId</th>
@@ -30,6 +49,10 @@
         <tbody >
       {{#each courses}}
             <tr>
+            <td> <div class="form-check ">
+              <input class="form-check-input" type="checkbox" name="courseIds[]" value="{{this._id}}" >
+              </div>
+            </td>
             <th scope="row">{{sum @index 1}}</th>
             <td>{{this.name}}</td>
             <td>{{this.videoId}}</td>
@@ -47,11 +70,11 @@
               Bạn chưa đăng khóa học nào.
               <a href="/courses/create">Đăng Khóa Học</a>
             </td>
-          </tr>
+          </tr
           {{/each}}
         </tbody>
         </table>
-</div>
+</form>
 
 {{!-- Modal Confirm Alert  --}}
 
@@ -84,7 +107,11 @@
       var courseId
       var courseName
       var deleteForm = document.forms['delete-course-form']
+      var containerForm = document.forms['container-form']
       var btnDeleteCourse = document.getElementById('btn-delete-course')
+      var checkboxAll = $('#checkbox-all')
+      var courseItemCheckbox = $('input[name="courseIds[]"]')
+      var checkAllSubmitBtn = $('#check-all-submit-btn')
     // When dialog confirm show
     $('#delete-course-modal').on('show.bs.modal', function (event) {
       var button = $(event.relatedTarget)
@@ -99,7 +126,30 @@
         deleteForm.action = '/courses/'+courseId+'?_method=DELETE';
         deleteForm.submit()
       }
+ // Listener changed all
+      checkboxAll.change(function() {
+        var isCheckedAll = $(this).prop('checked')
+          courseItemCheckbox.prop('checked',isCheckedAll)
+          renderCheckAllSubmitBtn()
+      })
+ // Listener changed Item
+      courseItemCheckbox.change(function(){
+       var isCheckedAllItem = courseItemCheckbox.length === $('input[name="courseIds[]"]:checked').length
+       checkboxAll.prop('checked',isCheckedAllItem)
+       renderCheckAllSubmitBtn()
+      })
+
+
+
+// show btn Excuted
+
+    function renderCheckAllSubmitBtn() {
+      var checkCount = $('input[name="courseIds[]"]:checked').length
+      if (checkCount > 0) {
+          checkAllSubmitBtn.attr('disabled',false)
+      } else checkAllSubmitBtn.attr('disabled',true)
+    }
+
   })
-    
 
 </script>
