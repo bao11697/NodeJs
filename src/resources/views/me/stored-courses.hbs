@@ -38,12 +38,21 @@
             <tr>
             <th></th>
             <th style="width: 2%">#</th>
-            <th style="width: 20%">Course Name</th>
-            <th style="width: 10%">VideoId</th>
-            <th style="width: 10%">Lever</th>
-            <th style="width: 20%">Created Time</th>
-            <th style="width: 20%">Updated Time</th>
-            <th style="width: 18%">Tools</th>
+            <th style="width: 20%">Course Name
+              {{{sortable 'name' _sort}}}
+            </th>
+            <th style="width: 10%">VideoId
+                {{{sortable 'videoId' _sort}}}
+            </th>
+            <th style="width: 10%">Level
+                {{{sortable 'level' _sort}}}
+            </th>
+            <th style="width: 20%">Created Time
+                {{{sortable 'createdAt' _sort}}}</th>
+            <th style="width: 20%">Updated Time
+                {{{sortable 'updatedAt' _sort}}}</th>
+            <th style="width: 18%">Tools
+            </th>
             </tr>
         </thead>
         <tbody >
