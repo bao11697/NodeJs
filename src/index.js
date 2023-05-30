@@ -3,36 +3,13 @@ const morgan = require('morgan');
 const path = require('path');
 const methodOverride = require('method-override');
 const exphbs = require('express-handlebars');
-const sortMiddleware = require('./app/middlewares/sortMiddleware')
+const sortMiddleware = require('./app/middlewares/sortMiddleware');
 const app = express();
 const port = 3000;
 const hbs = exphbs.create({
     defaultLayout: 'main',
     extname: '.hbs',
-    helpers: {
-        sum: (a, b) => a + b,
-        checked: (value, curValue) => {
-            if (value == undefined) return '';
-            return value == curValue ? 'checked' : '';
-       
-        },
-        sortable: (field,sort)=> {
-            const sortType = field === sort.column ? sort.type : 'default'
-            const icons = {
-                default: 'fa-solid fa-sort fa-sm',
-                asc:'<fa-sharp fa-solid fa-sort-up fa-sm',
-                desc: 'fa-sharp fa-solid fa-sort-down fa-sm',
-            }
-            const types = {
-                default: 'desc',
-                asc: 'desc',
-                desc: 'asc'
-            }
-            const icon = icons[sortType]
-            const type = types[sortType]
-            return ` <a href="?_sort&column=${field}&type=${type}"><i class="${icon}"></i></a>`
-        }
-    },
+    helpers: require('./app/helpers/handlebars'),
 });
 
 const route = require('./routers');
@@ -45,7 +22,7 @@ db.connect();
 //Override Method
 app.use(methodOverride('_method'));
 
-app.use(sortMiddleware)
+app.use(sortMiddleware);
 
 //HTTP Logger
 // app.use(morgan('combined'))
@@ -64,7 +41,6 @@ app.use(
 );
 //Code JS
 app.use(express.json());
-
 
 // Router init
 route(app);
