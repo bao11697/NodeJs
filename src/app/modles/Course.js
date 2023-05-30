@@ -1,12 +1,15 @@
 const mongoose = require('mongoose');
 const mongooseDelete = require('mongoose-delete');
 const slug = require('mongoose-slug-updater');
-const AutoIncrement = require('mongoose-sequence')(mongoose);
+// const AutoIncrement = require('mongoose-sequence')(mongoose);
+// const autoIncrement = require('mongoose-auto-increment');
+
 
 const Schema = mongoose.Schema;
 
 const Course = new Schema(
     {
+        // _id: {type : Number},
         name: { type: String, required: true },
         description: {
             type: String,
